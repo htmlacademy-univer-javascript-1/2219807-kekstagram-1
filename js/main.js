@@ -1,3 +1,1 @@
-import {photoObjects} from './data.js';
-
-photoObjects();
+import './render.js';
