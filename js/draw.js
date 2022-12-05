@@ -1,4 +1,4 @@
-import {generatePhotoObjects} from './data';
+import {generatePhotoObjects} from './data.js';
 
 const template = document.querySelector('#picture').content;
 const newTemplate = template.querySelector('.picture');
