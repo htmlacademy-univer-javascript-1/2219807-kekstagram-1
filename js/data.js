@@ -10,7 +10,7 @@ const randomNames = ['Николай', 'Никита', 'Кирилл'];
 
 let idObject = 1;
 
-export const generatePhotoObjects = (amount) =>({
+const generatePhotoObjects = (amount) =>({
   id: idObject++,
   name: randomNames[getRandomNumber(0, randomNames.length - 1)],
   avatar: `img/avatar-${getRandomNumber(1,6)}.svg`,
@@ -21,5 +21,6 @@ export const generatePhotoObjects = (amount) =>({
 });
 
 const createPhotoObjects = () => Array.from({length:AMOUNTOBJECTS}, generatePhotoObjects);
+
 
 export {createPhotoObjects};
