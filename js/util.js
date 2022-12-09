@@ -1,15 +1,20 @@
-const getRandomNumber = (min, max) => {
-  if (min < 0 || max < 0) {
-    return -1;
-  }
-  if (min < max) {
-    [max,min] = [min, max];
-  }
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+const getRandomPositiveInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
 };
 
-// const isMaxLength = (text, length) => (text.length >= length);
+const getRandomElementFromArray = (array) => array[getRandomPositiveInteger(0, array.length - 1)];
+
+const checkStringLength = (string, length) => string.length <= length;
+
+const uniqueNumberGenerator = () => {
+  let prevNumber = 0;
+
+  return () => ++prevNumber;
+};
 
 const isEscapeKey = (event) => event.key === 'Escape';
 
-export {getRandomNumber, isEscapeKey};
+export {getRandomPositiveInteger, getRandomElementFromArray, checkStringLength, uniqueNumberGenerator, isEscapeKey};

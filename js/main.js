@@ -1,4 +1,5 @@
-import {photoObjects} from './data.js';
-import {createCards} from './render-cards.js';
+import './util.js';
+import {createImages} from './data.js';
+import {createThumbnails} from './renderCards.js';
 
-photoObjects(createCards());
+createThumbnails(createImages());
