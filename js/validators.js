@@ -41,3 +41,4 @@ export {
   checkIfHashtagCorrect,
   MAX_TAGS_NUMBER,
 };
+

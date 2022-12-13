@@ -22,8 +22,9 @@ const declensionComments = (numberComments) => {
   const tens = numberComments / 10 % 10;
   if (ones === 1 && tens === 0 || (tens >= 2 && ones === 1)) {
     return ' комментария';
+  } else {
+    return ' комментариев';
   }
-  return ' комментариев';
 };
 
 export {
