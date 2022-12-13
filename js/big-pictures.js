@@ -19,6 +19,7 @@ const closeModal = (e) => {
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', closeModal);
     bigPictureCancel.removeEventListener('click', closeModal);
+    commentsCount.textContent = MAX_COMMENT_NUMBER;
   }
 };
 
@@ -53,7 +54,7 @@ const showCommentsCount = (image, commentsNumber) => {
   socialCommentCount.innerHTML = `${commentsNumber > commentsCount.textContent ? commentsCount.textContent : commentsNumber} из `;
   socialCommentCount.append(commentsCount);
   socialCommentCount.innerHTML += declensionComments(commentsCount.textContent);
-  if (commentsNumber > commentsCount.textContent) {
+  if (commentsNumber >= commentsCount.textContent) {
     commentsLoader.classList.add('hidden');
   }
 };
