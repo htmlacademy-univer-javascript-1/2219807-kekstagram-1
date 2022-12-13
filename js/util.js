@@ -17,4 +17,21 @@ const uniqueNumberGenerator = () => {
 
 const isEscapeKey = (event) => event.key === 'Escape';
 
-export {getRandomPositiveInteger, getRandomElementFromArray, checkStringLength, uniqueNumberGenerator, isEscapeKey};
+const declensionComments = (numberComments) => {
+  const ones = numberComments % 10;
+  const tens = numberComments / 10 % 10;
+  if (ones === 1 && tens === 0 || (tens >= 2 && ones === 1)) {
+    return ' комментария';
+  } else {
+    return ' комментариев';
+  }
+};
+
+export {
+  getRandomPositiveInteger,
+  getRandomElementFromArray,
+  checkStringLength,
+  uniqueNumberGenerator,
+  isEscapeKey,
+  declensionComments
+};

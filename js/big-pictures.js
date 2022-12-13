@@ -1,4 +1,4 @@
-import {isEscapeKey} from './util.js';
+import {isEscapeKey, declensionComments} from './util.js';
 
 const MAX_COMMENT_NUMBER = 5;
 
@@ -19,6 +19,7 @@ const closeModal = (e) => {
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', closeModal);
     bigPictureCancel.removeEventListener('click', closeModal);
+    commentsCount.textContent = MAX_COMMENT_NUMBER;
   }
 };
 
@@ -52,8 +53,8 @@ const showCommentsCount = (image, commentsNumber) => {
   drawComments(image.comments, commentsNumber);
   socialCommentCount.innerHTML = `${commentsNumber > commentsCount.textContent ? commentsCount.textContent : commentsNumber} из `;
   socialCommentCount.append(commentsCount);
-  socialCommentCount.innerHTML += ' комментариев';
-  if (commentsNumber > commentsCount.textContent) {
+  socialCommentCount.innerHTML += declensionComments(commentsCount.textContent);
+  if (commentsNumber >= commentsCount.textContent) {
     commentsLoader.classList.add('hidden');
   }
 };
