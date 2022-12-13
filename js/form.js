@@ -1,6 +1,6 @@
 import {isEscapeKey} from './util.js';
-import {checkIfHashtagCorrect, checkIfHashtagsRepeated, checkMaxHashtagsCount, MAX_TAGS_NUMBER} from './validators.js';
-import {smartSlider} from './slider.js';
+import {isHashtagCorrect, isHashtagsRepeated, isMaxHashtags, MAX_TAGS_COUNT} from './validators.js';
+import {getSmartSlider} from './slider.js';
 import {scaleImage} from './scale-image.js';
 
 const imgUploadForm = document.querySelector('.img-upload__form');
@@ -22,12 +22,12 @@ const effectsList = document.querySelector('.effects__list');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 
-const smartSliderFilters = smartSlider('none', effectLevelSlider, effectLevelValue);
+const smartSliderFilters = getSmartSlider('none', effectLevelSlider, effectLevelValue);
 const scaleUploadImage = scaleImage(scaleControlValue, imgPreview);
 
-pristine.addValidator(textHashtags, checkIfHashtagsRepeated, 'Хештеги регистронезависимы и не должны повторяться');
-pristine.addValidator(textHashtags, checkMaxHashtagsCount, `Максимальное число хештегов - ${MAX_TAGS_NUMBER}`);
-pristine.addValidator(textHashtags, checkIfHashtagCorrect, 'Один из введённых вами хештегов некорректен');
+pristine.addValidator(textHashtags, isHashtagsRepeated, 'Хештеги регистронезависимы и не должны повторяться');
+pristine.addValidator(textHashtags, isMaxHashtags, `Максимальное число хештегов - ${MAX_TAGS_COUNT}`);
+pristine.addValidator(textHashtags, isHashtagCorrect, 'Один из введённых вами хештегов некорректен');
 
 const closeUploadFileForm = (e) => {
   if ((isEscapeKey(e) && document.activeElement !== textHashtags && document.activeElement !== textDescription) || e.type === 'click') {
