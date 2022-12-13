@@ -1,4 +1,4 @@
-import {isEscapeKey} from './util.js';
+import {declensionComments, isEscapeKey} from './util.js';
 
 const MAX_COMMENT_NUMBER = 5;
 
@@ -52,9 +52,11 @@ const showCommentsCount = (image, commentsNumber) => {
   drawComments(image.comments, commentsNumber);
   socialCommentCount.innerHTML = `${commentsNumber > commentsCount.textContent ? commentsCount.textContent : commentsNumber} из `;
   socialCommentCount.append(commentsCount);
-  socialCommentCount.innerHTML += ' комментариев';
-  if (commentsNumber > commentsCount.textContent) {
+  socialCommentCount.innerHTML += declensionComments(commentsCount.textContent);
+  if (commentsNumber === commentsCount.textContent) {
     commentsLoader.classList.add('hidden');
+    commentsLoader.removeEventListener('click');
+    commentsNumber = MAX_COMMENT_NUMBER;
   }
 };
 
@@ -63,7 +65,7 @@ const openModal = (image) => {
   bigPictureImg.src = image.url;
   bigPictureImg.alt = image.description;
   likesCount.textContent = image.likes;
-  commentsCount.textContent = image.comments.length;
+  commentsCount.textContent = image.comments;
   socialCaption.textContent = image.description;
 
   commentsLoader.classList.remove('hidden');
