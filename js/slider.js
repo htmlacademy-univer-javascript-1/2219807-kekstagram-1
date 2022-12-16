@@ -54,6 +54,4 @@ const getSmartSlider = (filter, levelSlider, levelValue) => {
   };
 };
 
-export {
-  getSmartSlider
-};
+export {getSmartSlider};

@@ -38,6 +38,4 @@ const scaleImage = (scaleControlValue, imgPreview) => {
   };
 };
 
-export {
-  scaleImage
-};
+export {scaleImage};
