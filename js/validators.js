@@ -1,11 +1,11 @@
 const TAG_REGEX = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/i;
-const MAX_TAGS_NUMBER = 5;
+const MAX_TAGS_COUNT = 5;
 
-const splitHashtags = (value) => value.toLowerCase().split(' ');
+const separateHashTag = (value) => value.toLowerCase().split(' ');
 
-const checkIfHashtagsRepeated = (value) => {
+const isHashtagsRepeated = (value) => {
   if (value !== '') {
-    const hashTagsArray = splitHashtags(value);
+    const hashTagsArray = separateHashTag(value);
     const hashTagsSet = new Set(hashTagsArray);
 
     if (hashTagsSet.size !== hashTagsArray.length) {
@@ -15,30 +15,30 @@ const checkIfHashtagsRepeated = (value) => {
   return true;
 };
 
-const checkMaxHashtagsCount = (value) => {
+const isMaxHashtags = (value) => {
   if (value !== '') {
-    const hashTagsArray = splitHashtags(value);
+    const hashTagsArray = separateHashTag(value);
 
-    if (hashTagsArray.length > MAX_TAGS_NUMBER) {
+    if (hashTagsArray.length > MAX_TAGS_COUNT) {
       return false;
     }
   }
   return true;
 };
 
-const checkIfHashtagCorrect = (value) => {
+const isHashtagCorrect = (value) => {
   if (value === '') {
     return true;
   }
 
-  const hashTagsArray = splitHashtags(value);
+  const hashTagsArray = separateHashTag(value);
   return hashTagsArray.every((hashtag) => TAG_REGEX.test(hashtag));
 };
 
 export {
-  checkIfHashtagsRepeated,
-  checkMaxHashtagsCount,
-  checkIfHashtagCorrect,
-  MAX_TAGS_NUMBER,
+  isHashtagsRepeated,
+  isMaxHashtags,
+  isHashtagCorrect,
+  MAX_TAGS_COUNT,
 };
 
