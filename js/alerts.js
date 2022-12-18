@@ -1,4 +1,4 @@
-import {isEscapeKey} from './util.js';
+import {isEscapePressed} from './util.js';
 
 const successTemplate = document.querySelector('#success').content;
 const errorTemplate = document.querySelector('#error').content;
@@ -7,7 +7,7 @@ const getSuccess = () => {
   const success = successTemplate.cloneNode(true);
 
   const closeModal = (e) => {
-    if (isEscapeKey(e)) {
+    if (isEscapePressed(e)) {
       document.removeEventListener('click', closeModal);
       document.removeEventListener('keydown', closeModal);
       document.querySelector('.success').remove();
@@ -32,7 +32,7 @@ const getError = () => {
   const error = errorTemplate.cloneNode(true);
 
   const closeModal = (e) => {
-    if (isEscapeKey(e)) {
+    if (isEscapePressed(e)) {
       document.removeEventListener('click', closeModal);
       document.removeEventListener('keydown', closeModal);
       document.querySelector('.error').remove();

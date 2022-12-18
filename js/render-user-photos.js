@@ -1,7 +1,8 @@
 import {createThumbnails} from './render-cards.js';
-import { getDataFrom } from './api.js';
-import { getRandomPositiveInteger, showAlert, debounce } from './util.js';
-import { setUserFormSubmit, closeUploadFileForm } from './form.js';
+import {getDataFrom} from './api.js';
+import {getRandomPositiveInteger, showAlert, debounce} from './util.js';
+import {setUserFormSubmit, closeUploadFileForm} from './form.js';
+import {getSuccess, getError} from './alerts.js';
 
 const TIMEOUT_DELAY = 500;
 const RANDOM_PHOTOS_COUNT = 10;
@@ -69,3 +70,10 @@ getDataFrom(
 
 setUserFormSubmit(closeUploadFileForm);
 
+setUserFormSubmit(() => {
+  closeUploadFileForm();
+  getSuccess();
+}, () => {
+  closeUploadFileForm(null, false);
+  getError();
+});

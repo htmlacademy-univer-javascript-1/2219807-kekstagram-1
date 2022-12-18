@@ -1,8 +1,9 @@
-import {isEscapeKey} from './util.js';
+import {isEscapePressed, checkFileType} from './util.js';
 import {isHashtagCorrect, isHashtagsRepeated, isMaxHashtags, MAX_TAGS_COUNT} from './validators.js';
 import {getSmartSlider} from './slider.js';
 import {scaleImage} from './scale-image.js';
 import {sendDataTo} from './api.js';
+import {getError} from './alerts.js';
 
 const imgUploadForm = document.querySelector('.img-upload__form');
 const uploadFile = document.querySelector('#upload-file');
@@ -40,7 +41,7 @@ const applyChanges = (value) => {
 };
 
 const closeUploadFileForm = (e = null, clear = true) => {
-  if (e === null || (isEscapeKey(e) && document.activeElement !== textHashtags && document.activeElement !== textDescription) || e.type === 'click') {
+  if (e === null || (isEscapePressed(e) && document.activeElement !== textHashtags && document.activeElement !== textDescription) || e.type === 'click') {
     imgUploadOverlay.classList.add('hidden');
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', closeUploadFileForm);
@@ -54,11 +55,19 @@ const closeUploadFileForm = (e = null, clear = true) => {
   }
 };
 
-uploadFile.addEventListener('change', () => {
-  imgUploadOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  document.addEventListener('keydown', closeUploadFileForm);
-  uploadCancel.addEventListener('click', closeUploadFileForm);
+uploadFile.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  const isCorrectFileType = checkFileType(file);
+
+  if (isCorrectFileType) {
+    imgPreview.src = URL.createObjectURL(file);
+    imgUploadOverlay.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    document.addEventListener('keydown', closeUploadFileForm);
+    uploadCancel.addEventListener('click', closeUploadFileForm);
+  } else {
+    getError();
+  }
 });
 
 const blockSubmitButton = () => {
@@ -82,13 +91,9 @@ const setUserFormSubmit = (onSuccess, onError) => {
         () => {
           onSuccess();
           unblockSubmitButton();
-
-          // scaleUploadImage.init();
-          // applyChanges('none');
         },
         () => {
           onError();
-          // showAlert('Не удалось отправить форму. Попробуйте ещё раз');
           unblockSubmitButton();
         },
         new FormData(imgUploadForm)
