@@ -78,7 +78,7 @@ const setUserFormSubmit = (onSuccess, onError) => {
     const isValid = pristine.validate();
     if (isValid) {
       blockSubmitButton();
-      sendData(
+      sendDataTo(
         () => {
           onSuccess();
           unblockSubmitButton();
