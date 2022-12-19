@@ -1,4 +1,4 @@
-import {isEscapeKey, declensionComments} from './util.js';
+import {isEscapePressed, declensionComments} from './util.js';
 
 const MAX_COMMENT_NUMBER = 5;
 
@@ -14,7 +14,7 @@ const commentsLoader = document.querySelector('.comments-loader');
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
 
 const closeModal = (e) => {
-  if (isEscapeKey(e) || e.type === 'click') {
+  if (isEscapePressed(e) || e.type === 'click') {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', closeModal);

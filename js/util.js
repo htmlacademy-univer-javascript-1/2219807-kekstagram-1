@@ -1,4 +1,5 @@
-const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 1000;
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
@@ -7,17 +8,7 @@ const getRandomPositiveInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const getRandomElementFromArray = (array) => array[getRandomPositiveInteger(0, array.length - 1)];
-
-const checkStringLength = (string, length) => string.length <= length;
-
-const uniqueNumberGenerator = () => {
-  let prevNumber = 0;
-
-  return () => ++prevNumber;
-};
-
-const isEscapeKey = (event) => event.key === 'Escape';
+const isEscapePressed = (event) => event.key === 'Escape';
 
 const declensionComments = (numberComments) => {
   const ones = numberComments % 10;
@@ -58,13 +49,16 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
+const checkFileType = (file) => {
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPES.some((it) => fileName.endsWith(it));
+};
+
 export {
   getRandomPositiveInteger,
-  getRandomElementFromArray,
-  checkStringLength,
-  uniqueNumberGenerator,
-  isEscapeKey,
+  isEscapePressed,
   declensionComments,
   showAlert,
-  debounce
+  debounce,
+  checkFileType
 };
